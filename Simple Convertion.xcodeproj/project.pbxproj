@@ -11,6 +11,17 @@
 		AE12DC5021C3FC7F00656B08 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE12DC4F21C3FC7F00656B08 /* ViewController.swift */; };
 		AE12DC5221C3FC7F00656B08 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE12DC5121C3FC7F00656B08 /* Assets.xcassets */; };
 		AE12DC5521C3FC7F00656B08 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE12DC5321C3FC7F00656B08 /* Main.storyboard */; };
+		AE12DC5E21C3FD6A00656B08 /* StatusItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE12DC5D21C3FD6A00656B08 /* StatusItemController.swift */; };
+		AE12DC6021C4034F00656B08 /* StatusBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE12DC5F21C4034F00656B08 /* StatusBarView.swift */; };
+		AE12DC6221C4084600656B08 /* ffmpeg in Resources */ = {isa = PBXBuildFile; fileRef = AE12DC6121C4084600656B08 /* ffmpeg */; };
+		AE12DC6421C410A700656B08 /* ProcessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE12DC6321C410A700656B08 /* ProcessViewController.swift */; };
+		AE9A9E1924340EC8006912EE /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9A9E1824340EC8006912EE /* Preferences.swift */; };
+		AE9A9E1C24340F5A006912EE /* PreferencesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9A9E1B24340F5A006912EE /* PreferencesController.swift */; };
+		AE9A9E1E243413A0006912EE /* CRFHelpBtnController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9A9E1D243413A0006912EE /* CRFHelpBtnController.swift */; };
+		AE9A9E2024341424006912EE /* CRFSliderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9A9E1F24341424006912EE /* CRFSliderController.swift */; };
+		AEBD644A2435D65800DB85A1 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEBD64492435D65800DB85A1 /* SettingsViewController.swift */; };
+		AEBD644D2435D67200DB85A1 /* ConvertingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEBD644B2435D67200DB85A1 /* ConvertingViewController.swift */; };
+		AEBD64502435D6B800DB85A1 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEBD644F2435D6B800DB85A1 /* PopoverViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +32,17 @@
 		AE12DC5421C3FC7F00656B08 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AE12DC5621C3FC7F00656B08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AE12DC5721C3FC7F00656B08 /* Simple_Convertion.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Simple_Convertion.entitlements; sourceTree = "<group>"; };
+		AE12DC5D21C3FD6A00656B08 /* StatusItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusItemController.swift; sourceTree = "<group>"; };
+		AE12DC5F21C4034F00656B08 /* StatusBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarView.swift; sourceTree = "<group>"; };
+		AE12DC6121C4084600656B08 /* ffmpeg */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = ffmpeg; sourceTree = "<group>"; };
+		AE12DC6321C410A700656B08 /* ProcessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessViewController.swift; sourceTree = "<group>"; };
+		AE9A9E1824340EC8006912EE /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
+		AE9A9E1B24340F5A006912EE /* PreferencesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesController.swift; sourceTree = "<group>"; };
+		AE9A9E1D243413A0006912EE /* CRFHelpBtnController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CRFHelpBtnController.swift; sourceTree = "<group>"; };
+		AE9A9E1F24341424006912EE /* CRFSliderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CRFSliderController.swift; sourceTree = "<group>"; };
+		AEBD64492435D65800DB85A1 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		AEBD644B2435D67200DB85A1 /* ConvertingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertingViewController.swift; sourceTree = "<group>"; };
+		AEBD644F2435D6B800DB85A1 /* PopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +75,10 @@
 		AE12DC4C21C3FC7F00656B08 /* Simple Convertion */ = {
 			isa = PBXGroup;
 			children = (
+				AEBD64512435D73500DB85A1 /* Views */,
+				AE9A9E1A24340F44006912EE /* Controllers */,
+				AE9A9E1724340EB8006912EE /* Classes */,
+				AE12DC6121C4084600656B08 /* ffmpeg */,
 				AE12DC4D21C3FC7F00656B08 /* AppDelegate.swift */,
 				AE12DC4F21C3FC7F00656B08 /* ViewController.swift */,
 				AE12DC5121C3FC7F00656B08 /* Assets.xcassets */,
@@ -61,6 +87,37 @@
 				AE12DC5721C3FC7F00656B08 /* Simple_Convertion.entitlements */,
 			);
 			path = "Simple Convertion";
+			sourceTree = "<group>";
+		};
+		AE9A9E1724340EB8006912EE /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				AE9A9E1824340EC8006912EE /* Preferences.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		AE9A9E1A24340F44006912EE /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				AE12DC5D21C3FD6A00656B08 /* StatusItemController.swift */,
+				AE12DC6321C410A700656B08 /* ProcessViewController.swift */,
+				AE9A9E1B24340F5A006912EE /* PreferencesController.swift */,
+				AEBD644F2435D6B800DB85A1 /* PopoverViewController.swift */,
+				AE9A9E1D243413A0006912EE /* CRFHelpBtnController.swift */,
+				AE9A9E1F24341424006912EE /* CRFSliderController.swift */,
+				AEBD64492435D65800DB85A1 /* SettingsViewController.swift */,
+				AEBD644B2435D67200DB85A1 /* ConvertingViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		AEBD64512435D73500DB85A1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AE12DC5F21C4034F00656B08 /* StatusBarView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -96,6 +153,11 @@
 					AE12DC4921C3FC7F00656B08 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -123,6 +185,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AE12DC5221C3FC7F00656B08 /* Assets.xcassets in Resources */,
+				AE12DC6221C4084600656B08 /* ffmpeg in Resources */,
 				AE12DC5521C3FC7F00656B08 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -134,8 +197,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AEBD644D2435D67200DB85A1 /* ConvertingViewController.swift in Sources */,
 				AE12DC5021C3FC7F00656B08 /* ViewController.swift in Sources */,
+				AE9A9E1E243413A0006912EE /* CRFHelpBtnController.swift in Sources */,
+				AE12DC6421C410A700656B08 /* ProcessViewController.swift in Sources */,
+				AEBD64502435D6B800DB85A1 /* PopoverViewController.swift in Sources */,
+				AEBD644A2435D65800DB85A1 /* SettingsViewController.swift in Sources */,
+				AE9A9E1924340EC8006912EE /* Preferences.swift in Sources */,
 				AE12DC4E21C3FC7F00656B08 /* AppDelegate.swift in Sources */,
+				AE12DC6021C4034F00656B08 /* StatusBarView.swift in Sources */,
+				AE9A9E1C24340F5A006912EE /* PreferencesController.swift in Sources */,
+				AE9A9E2024341424006912EE /* CRFSliderController.swift in Sources */,
+				AE12DC5E21C3FD6A00656B08 /* StatusItemController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,11 +336,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "Simple Convertion/Simple_Convertion.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/include/*/**";
 				INFOPLIST_FILE = "Simple Convertion/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.timurko.Simple-Convertion";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -278,11 +353,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "Simple Convertion/Simple_Convertion.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/include/*/**";
 				INFOPLIST_FILE = "Simple Convertion/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.timurko.Simple-Convertion";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
