@@ -21,7 +21,11 @@ extension NSPasteboard.PasteboardType {
 
 class StatusBarView: NSView {
     var filePath: String?
-    let expectedExt = ["wav", "ogg", "aac", "aif", "mov", "mp4", "mp4", "avi", "m4a", "aif", "aiff" ]
+    
+    let video_ext = ["mov","avi","mp4"]
+    let audio_ext = ["ogg", "mp3", "aac", "wav", "aif", "aiff", "m4a"]
+    let image_ext = ["jpg", "jpeg", "tiff", "png" ]
+    
     let progressIndicator = NSProgressIndicator()
     var task = Process()
     
@@ -137,7 +141,7 @@ class StatusBarView: NSView {
             else { return false }
         
         let suffix = URL(fileURLWithPath: path).pathExtension
-        for ext in self.expectedExt {
+        for ext in (self.video_ext + self.audio_ext + self.image_ext) {
             if ext.lowercased() == suffix {
                 return true
             }
@@ -176,7 +180,9 @@ class StatusBarView: NSView {
         task.currentDirectoryPath = inputFile.deletingLastPathComponent().path
 
         print("Current extension: \(ext)")
-        if (ext == "mov" || ext == "avi" || ext == "mp4") {
+        
+        
+        if (self.video_ext.contains(ext)) {
             if (ext == "mp4" || FileManager.default.fileExists(atPath: newfile.appendingPathExtension("mp4").path)) {
                 newfile = newfile.deletingLastPathComponent().appendingPathComponent( newfile.lastPathComponent + " copy" )
             }
@@ -206,16 +212,50 @@ class StatusBarView: NSView {
                 newfile.appendingPathExtension("mp4").lastPathComponent
             ]
             
-        } else if (ext == "ogg" || ext == "mp3" || ext == "aac" || ext == "wav" || ext == "aif" || ext == "aiff" || ext == "m4a") {
+        } else if (self.image_ext.contains(ext)) {
+            // ffmpeg -loop 1 -i "676х468.jpeg" -c:v libx264 -t 5 -pix_fmt yuv420p -crf 20 -preset slow "676х468.mp4"
+            
+            if (ext == "mp4" || FileManager.default.fileExists(atPath: newfile.appendingPathExtension("mp4").path)) {
+                newfile = newfile.deletingLastPathComponent().appendingPathComponent( newfile.lastPathComponent + " copy" )
+            }
+            task.arguments = [
+                "-i", inputFile.lastPathComponent,
+                "-loop", "1",
+                "-c:v", "libx264",
+                "-crf", String(Preferences.shared.crfQuality),
+                "-t", String(5),
+                "-preset", "slow",
+                "-pix_fmt", "yuv420p",
+                "-movflags", "+faststart",
+            ]
+            if Preferences.shared.resolution != 0 {
+                task.arguments? += [
+                    "-s","hd\(String(Preferences.shared.resolution))",
+                ]
+            }
+            task.arguments? += [
+                "-g","30",
+                "-bf","2",
+                "-c:a","aac",
+                "-b:a","384k",
+                "-profile:a","aac_low",
+                newfile.appendingPathExtension("mp4").lastPathComponent
+            ]
+            
+        } else if (self.audio_ext.contains(ext)) {
+            
             if (ext == "mp3" || FileManager.default.fileExists(atPath: newfile.appendingPathExtension("mp3").path)) {
                 newfile = newfile.deletingLastPathComponent().appendingPathComponent( newfile.lastPathComponent + " copy" )
             }
+            
             print("New filename: \(newfile)")
+            
             task.arguments = [
                 "-i", inputFile.lastPathComponent,
                 "-b:a", "128k",
                 newfile.appendingPathExtension("mp3").lastPathComponent,
             ]
+            
         } else {
             return false
         }
@@ -272,7 +312,6 @@ class StatusBarView: NSView {
         
         //NotificationCenter.default.post(name: .NSFileHandleDataAvailable, object: nil)
         NotificationQueue.default.enqueue(Notification(name: .NSFileHandleDataAvailable), postingStyle: .whenIdle)
-        
         
         print("done")
         return true

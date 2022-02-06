@@ -100,13 +100,13 @@
 		AE9A9E1A24340F44006912EE /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				AEBD64492435D65800DB85A1 /* SettingsViewController.swift */,
+				AEBD644F2435D6B800DB85A1 /* PopoverViewController.swift */,
 				AE12DC5D21C3FD6A00656B08 /* StatusItemController.swift */,
 				AE12DC6321C410A700656B08 /* ProcessViewController.swift */,
 				AE9A9E1B24340F5A006912EE /* PreferencesController.swift */,
-				AEBD644F2435D6B800DB85A1 /* PopoverViewController.swift */,
 				AE9A9E1D243413A0006912EE /* CRFHelpBtnController.swift */,
 				AE9A9E1F24341424006912EE /* CRFSliderController.swift */,
-				AEBD64492435D65800DB85A1 /* SettingsViewController.swift */,
 				AEBD644B2435D67200DB85A1 /* ConvertingViewController.swift */,
 			);
 			path = Controllers;
@@ -343,6 +343,7 @@
 				INFOPLIST_FILE = "Simple Convertion/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.timurko.Simple-Convertion";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -360,6 +361,7 @@
 				INFOPLIST_FILE = "Simple Convertion/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.timurko.Simple-Convertion";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

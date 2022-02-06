@@ -32,6 +32,9 @@ class PreferencesController: NSViewController {
         
     }
     
+    @IBAction func QuitClicked(_ sender: Any) {
+        NSApplication.shared.terminate(sender)
+    }
     
     @IBAction func ResolutionChange(_ sender: Any) {
         saveNewPrefs()

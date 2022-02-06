@@ -17,11 +17,30 @@ class StatusItemController: NSObject, NSMenuDelegate {
     
     override func awakeFromNib() {
         statusItem = NSStatusBar.system.statusItem(withLength: 24.0)
-        statusItem.highlightMode = true
-        statusBar.menu = statusMenu
-        statusMenu.delegate = self
+        statusItem.button?.target = self
+        statusItem.button?.action = #selector(showPopover)
+        //statusItem.highlightMode = true
+        //statusBar.menu = statusMenu
+        //statusMenu.delegate = self
         //statusItem.menu = statusMenu
         statusItem.button?.addSubview(statusBar)
+    }
+    
+    @objc func showPopover() {
+        let storyboard = NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"), bundle: nil)
+    
+        guard let viewcontroller = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "SettingsViewController")) as? SettingsViewController else {
+            fatalError("Unable to find SettingsViewController")
+        }
+    
+        guard let button = statusItem.button else {
+            fatalError("Couldn't find status item button")
+        }
+    
+        let popoverView = NSPopover()
+        popoverView.contentViewController = viewcontroller
+        popoverView.behavior = .transient
+        popoverView.show(relativeTo: button.bounds, of: button, preferredEdge: .maxY)
     }
     
     func menuWillOpen(_ menu: NSMenu) {
