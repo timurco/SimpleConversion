@@ -9,14 +9,21 @@ import Cocoa
 
 
 class StatusItemController: NSObject, NSMenuDelegate {
+  
+    let statusBarWidth: CGFloat = 20
+    let statusBarHeight: CGFloat = NSStatusBar.system.thickness
     
     var statusItem: NSStatusItem!
-    var statusBar = StatusBarView(frame:NSRect(x: 0, y: 0, width: 22, height: 22))
+    var statusBar: StatusBarView!
     
     @IBOutlet weak var statusMenu: NSMenu!
     
     override func awakeFromNib() {
-        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+        let systemStatusBar = NSStatusBar.system
+        statusItem = systemStatusBar.statusItem(withLength: self.statusBarWidth)
+        
+        statusBar = StatusBarView(frame:NSRect(x: 0, y: 0, width: self.statusBarWidth, height: statusBarHeight))
+      
         statusItem.button?.target = self
         statusItem.button?.action = #selector(showPopover)
         //statusItem.highlightMode = true

@@ -94,18 +94,15 @@ class StatusBarView: NSView {
     menu?.removeItem(progressMenuItem)
     menu?.removeItem(stopMenuItem)
     needsDisplay = true
+    layer?.sublayers?.forEach { $0.removeFromSuperlayer() }
   }
   
   override func draw(_ dirtyRect: NSRect) {
     super.draw(dirtyRect)
-    let w = dirtyRect.size.width
-    let h = dirtyRect.size.height
-    
-    let frame = NSRect(x: (w - h) / 2, y: 2, width: h - 4, height: h - 4)
-    let circleLayer = createRingLayer(frame)
+    let circleLayer = createRingLayer(dirtyRect)
     layer?.addSublayer(circleLayer)
     
-    progressIndicator.frame = NSRect(x: (w - h) / 2, y: 2, width: h - 4, height: h - 4)
+    progressIndicator.frame = frame
   }
   
   override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
@@ -114,12 +111,6 @@ class StatusBarView: NSView {
     } else {
       return NSDragOperation()
     }
-  }
-  
-  override func draggingExited(_ sender: NSDraggingInfo?) {
-  }
-  
-  override func draggingEnded(_ sender: NSDraggingInfo) {
   }
   
   override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
@@ -290,6 +281,7 @@ class StatusBarView: NSView {
         currentFrame += Int(frameMatches[0][1])! * 100 * 60 * 60 // hours
         self.progress = CGFloat(currentFrame) / CGFloat(duration)
         self.processViewController?.updateProgress(self.progress)
+        self.needsDisplay = true
         print("progress \(self.progress)")
         self.needsDisplay = true
       }
@@ -314,49 +306,62 @@ class StatusBarView: NSView {
   }
   
   private func createRingLayer(_ frame: NSRect) -> CAShapeLayer {
+    var path = CGMutablePath()
     let center = CGPoint(x: frame.width / 2, y: frame.height / 2)
-    let radius: CGFloat = frame.width / 2 - 3
-    let ringWidth: CGFloat = 2
+    let radius: CGFloat = frame.height / 2 - 4
+    let progressColor = NSColor(
+      red: (1.0 - progress) * 0.890 + progress * 0.412,
+      green: (1.0 - progress) * 0.239 + progress * 0.788,
+      blue: (1.0 - progress) * 0.153 + progress * 0.204,
+      alpha: 1.0
+    )
     
     let base = CAShapeLayer()
     
-    let disc = CAShapeLayer()
-    disc.frame = frame
-    let r: CGFloat = (1.0 - progress) * 1 + progress * 0
-    let g: CGFloat = (1.0 - progress) * 0 + progress * 1
-    let b: CGFloat = (1.0 - progress) * 0 + progress * 0
+    let main = CAShapeLayer()
+    main.frame = frame
+    main.fillColor = nil
+    main.lineWidth = 2
+    main.fillColor = progress == 0 || progress == 1.0 ? NSColor.darkGray.cgColor : progressColor.cgColor
+    path = CGMutablePath()
+    path.addArc(center: center, radius: radius, startAngle: 0, endAngle: 2 * .pi, clockwise: true)
+    path.closeSubpath()
+    main.path = path
+    base.addSublayer(main)
     
-    disc.fillColor = NSColor(red: r, green: g, blue: b, alpha: 1.0).cgColor
-    disc.strokeColor = nil
-    let ringPath = CGMutablePath()
-    ringPath.addArc(center: center, radius: radius + ringWidth / 2, startAngle: 0, endAngle: 2 * .pi, clockwise: true)
-    ringPath.closeSubpath()
-    disc.path = ringPath
-    base.addSublayer(disc)
+    let circle_bg = CAShapeLayer()
+    circle_bg.frame = frame
+    circle_bg.fillColor = nil
+    circle_bg.strokeColor = NSColor.lightGray.cgColor
+    circle_bg.lineWidth = 1.5
+    path = CGMutablePath()
+    path.addArc(center: center, radius: radius + 2, startAngle: .pi / 2, endAngle: .pi / 2 + .pi * 2 * (1 - progress), clockwise: false)
+    circle_bg.path = path
+    base.addSublayer(circle_bg)
     
-    let wedge = CAShapeLayer()
-    wedge.frame = frame
-    wedge.fillColor = progress > 0 ? NSColor.darkGray.cgColor : NSColor(red: 0.36, green: 0.7, blue: 0.5, alpha: 1).cgColor
-    wedge.strokeColor = nil
-    let wedgePath = CGMutablePath()
-    wedgePath.move(to: center)
-    wedgePath.addArc(center: center, radius: radius + ringWidth / 2, startAngle: .pi / 2, endAngle: .pi / 2 + .pi * 2 * (1 - progress), clockwise: false)
-    wedgePath.closeSubpath()
-    wedge.path = wedgePath
-    base.addSublayer(wedge)
-    
-    if progress > 0 {
-      let mask = CAShapeLayer()
-      mask.frame = frame
-      mask.fillColor = nil
-      mask.strokeColor = NSColor.white.cgColor
-      mask.lineWidth = ringWidth
-      let maskPath = CGMutablePath()
-      maskPath.addArc(center: center, radius: radius, startAngle: 0, endAngle: 2 * .pi, clockwise: true)
-      maskPath.closeSubpath()
-      mask.path = maskPath
+    if (progress > 0 && progress < 1) {
+      let textLayer = CATextLayer()
+      textLayer.frame = frame
+      textLayer.fontSize = 8
+      textLayer.position = CGPoint(x: center.x, y: center.y - 6 )
+      textLayer.alignmentMode = kCAAlignmentCenter;
+      textLayer.string = String(Int(round(progress*100)))
+      textLayer.foregroundColor = NSColor.black.cgColor
+      textLayer.backgroundColor = NSColor.clear.cgColor
+      base.addSublayer(textLayer)
       
-      base.mask = mask
+      let circle_fg = CAShapeLayer()
+      circle_fg.frame = frame
+      circle_fg.fillColor = nil
+      circle_fg.strokeColor = progressColor.cgColor
+      circle_fg.lineWidth = 2
+      path = CGMutablePath()
+      path.addArc(center: center, radius: radius + 2,
+                  startAngle: .pi / 2,
+                  endAngle: .pi / 2 + .pi * 2 * (1 - progress),
+                  clockwise: true)
+      circle_fg.path = path
+      base.addSublayer(circle_fg)
     }
     
     return base

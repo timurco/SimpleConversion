@@ -48,7 +48,7 @@ class ProcessViewController: NSViewController {
     public func updateProgress(_ progress: Double) {
         if (!isTerminating) {
             progressBar.isIndeterminate = false
-            progressBar.doubleValue = progress
+            progressBar.doubleValue =  Double(progress * 100)
         }
     }
     
