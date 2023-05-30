@@ -1,6 +1,5 @@
 <p align="center">
-  <img alt="Simple Conversion APP - Screenshot with option" src="https://github.com/timurco/SimpleConversion/blob/main/screenshots/screenshot-1.png" />
-   <img alt="Simple Conversion APP - Screenshot with proccess of converting" src="https://github.com/timurco/SimpleConversion/blob/main/screenshots/screenshot-2.png" />
+  <img alt="Simple Conversion APP - Screenshot with option and with proccess of converting" src="https://github.com/timurco/SimpleConversion/blob/main/screenshots/screenshot.png" />
 </p>   
    
 # SimpleConversion
