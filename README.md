@@ -1,8 +1,7 @@
-.. image:: https://github.com/timurco/SimpleConversion/blob/main/screenshots/screenshot-1.png
-   :alt: Simple Conversion APP - Screenshot with option
-
-.. image:: https://github.com/timurco/SimpleConversion/blob/main/screenshots/screenshot-2.png
-   :alt: Simple Conversion APP - Screenshot with proccess of converting
+<p align="center">
+  <img alt="Simple Conversion APP - Screenshot with option" src="https://github.com/timurco/SimpleConversion/blob/main/screenshots/screenshot-1.png" />
+   <img alt="Simple Conversion APP - Screenshot with proccess of converting" src="https://github.com/timurco/SimpleConversion/blob/main/screenshots/screenshot-2.png" />
+</p>   
    
 # SimpleConversion
 
