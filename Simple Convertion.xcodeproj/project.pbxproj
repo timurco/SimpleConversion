@@ -37,6 +37,8 @@
 		AE12DC5F21C4034F00656B08 /* StatusBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarView.swift; sourceTree = "<group>"; };
 		AE12DC6121C4084600656B08 /* ffmpeg */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = ffmpeg; sourceTree = "<group>"; };
 		AE12DC6321C410A700656B08 /* ProcessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessViewController.swift; sourceTree = "<group>"; };
+		AE1D8BC52A261C30009509B9 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		AE1D8BC62A261FB5009509B9 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		AE2B680E27B028D400B04888 /* ImageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageController.swift; sourceTree = "<group>"; };
 		AE9A9E1824340EC8006912EE /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		AE9A9E1B24340F5A006912EE /* PreferencesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesController.swift; sourceTree = "<group>"; };
@@ -61,6 +63,8 @@
 		AE12DC4121C3FC7F00656B08 = {
 			isa = PBXGroup;
 			children = (
+				AE1D8BC52A261C30009509B9 /* README.md */,
+				AE1D8BC62A261FB5009509B9 /* LICENSE */,
 				AE12DC4C21C3FC7F00656B08 /* Simple Convertion */,
 				AE12DC4B21C3FC7F00656B08 /* Products */,
 			);
