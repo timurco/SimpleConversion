@@ -37,6 +37,7 @@ class PreferencesController: NSViewController {
     }
     
     @IBAction func ResolutionChange(_ sender: Any) {
+        print(resolution.integerValue)
         saveNewPrefs()
     }
     

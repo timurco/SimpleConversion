@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15705"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -186,7 +186,7 @@ Gw
                                 <rect key="frame" x="6" y="38" width="348" height="37"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" title="Initializing..." id="VxY-hy-ADq">
-                                    <font key="font" size="10" name=".SFNSText"/>
+                                    <font key="font" metaFont="system" size="10"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -296,7 +296,7 @@ Gw
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rze-Mk-P14" customClass="CRFSliderController" customModule="Simple_Convertion" customModuleProvider="target">
                                 <rect key="frame" x="35" y="42" width="450" height="19"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <sliderCell key="cell" alignment="left" maxValue="51" doubleValue="13.471520390070921" tickMarkPosition="above" sliderType="linear" id="dqM-8m-pyR"/>
+                                <sliderCell key="cell" state="on" alignment="left" maxValue="51" doubleValue="13.471520390070921" tickMarkPosition="above" sliderType="linear" id="dqM-8m-pyR"/>
                                 <connections>
                                     <action selector="SliderChange:" target="vC7-QV-r1O" id="0AF-an-Lvn"/>
                                 </connections>
@@ -357,7 +357,7 @@ Gw
                                 <rect key="frame" x="3" y="58" width="444" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="Ank-ve-8mO">
-                                    <font key="font" size="10" name=".AppleSystemUIFontBlackItalic"/>
+                                    <font key="font" metaFont="systemBlack" size="10"/>
                                     <string key="title">1
 2</string>
                                     <color key="textColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -411,6 +411,75 @@ Gw
                 <customObject id="PvC-k4-jyV" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="819" y="106"/>
+        </scene>
+        <!--Image View Controller-->
+        <scene sceneID="kUA-el-mVQ">
+            <objects>
+                <viewController storyboardIdentifier="ImageViewController" id="NIP-o0-ylO" customClass="ImageViewController" customModule="Simple_Convertion" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="WeJ-qd-c92" customClass="IBCocoaTouchLibraryObjectTemplate">
+                        <rect key="frame" x="0.0" y="0.0" width="505" height="119"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JaB-6N-5Ts">
+                                <rect key="frame" x="8" y="65" width="489" height="25"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Выберите длительность:" allowsEditingTextAttributes="YES" id="ptj-QM-X5p">
+                                    <font key="font" metaFont="cellTitle"/>
+                                    <color key="textColor" white="0.6583888296" alpha="0.84705882349999995" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="akT-tK-UDg">
+                                <rect key="frame" x="8" y="96" width="487" height="16"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Конвертация изображения в видео" allowsEditingTextAttributes="YES" id="Y7n-Nw-Nja">
+                                    <font key="font" size="13" name="LucidaGrande-Bold"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QDW-yS-hEO">
+                                <rect key="frame" x="37" y="46" width="458" height="19"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <sliderCell key="cell" alignment="left" maxValue="51" doubleValue="13.471520390070921" tickMarkPosition="above" sliderType="linear" id="2vN-gD-5pM"/>
+                            </slider>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4qL-KQ-pcI">
+                                <rect key="frame" x="6" y="47" width="27" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="0" id="4nV-op-klu">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dAi-P0-mNz">
+                                <rect key="frame" x="244" y="3" width="128" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                <buttonCell key="cell" type="push" title="Отмена" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="QHu-rY-BCt">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                                </buttonCell>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gef-Ho-fxF">
+                                <rect key="frame" x="372" y="3" width="128" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                <buttonCell key="cell" type="push" title="Ок" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" inset="2" id="cpG-yP-z4X">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                                </buttonCell>
+                            </button>
+                        </subviews>
+                    </view>
+                </viewController>
+                <customObject id="isZ-5p-F3v" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="403.5" y="-579.5"/>
         </scene>
     </scenes>
 </document>

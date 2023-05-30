@@ -11,12 +11,12 @@ import Cocoa
 class StatusItemController: NSObject, NSMenuDelegate {
     
     var statusItem: NSStatusItem!
-    var statusBar = StatusBarView(frame:NSRect(x: 0, y: 0, width: 24, height: 22))
+    var statusBar = StatusBarView(frame:NSRect(x: 0, y: 0, width: 22, height: 22))
     
     @IBOutlet weak var statusMenu: NSMenu!
     
     override func awakeFromNib() {
-        statusItem = NSStatusBar.system.statusItem(withLength: 24.0)
+        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         statusItem.button?.target = self
         statusItem.button?.action = #selector(showPopover)
         //statusItem.highlightMode = true
@@ -26,7 +26,7 @@ class StatusItemController: NSObject, NSMenuDelegate {
         statusItem.button?.addSubview(statusBar)
     }
     
-    @objc func showPopover() {
+    @objc func showPopover() {        
         let storyboard = NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"), bundle: nil)
     
         guard let viewcontroller = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "SettingsViewController")) as? SettingsViewController else {

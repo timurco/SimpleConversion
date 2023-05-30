@@ -11,13 +11,18 @@ import Foundation
 class Preferences {
     static let shared = Preferences()
     
+    var imageDuration: Int {
+        get {
+            return UserDefaults.standard.integer(forKey: "imageDuration")
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "imageDuration")
+        }
+    }
+    
     var resolution: Int {
         get {
-            if let resolution:Int = UserDefaults.standard.integer(forKey: "resolution") {
-                return resolution
-            } else {
-                return 0
-            }
+            return UserDefaults.standard.integer(forKey: "resolution")
         }
         set {
             UserDefaults.standard.set(newValue, forKey: "resolution")
@@ -26,11 +31,7 @@ class Preferences {
     
     var crfQuality: Int {
         get {
-            if let crfQuality:Int = UserDefaults.standard.integer(forKey: "crfQuality") {
-                return crfQuality
-            } else {
-                return 23
-            }
+            return UserDefaults.standard.integer(forKey: "crfQuality")
         }
         set {
             UserDefaults.standard.set(newValue, forKey: "crfQuality")

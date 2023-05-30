@@ -8,6 +8,7 @@
 
 
 import Cocoa
+import CoreGraphics
 
 extension NSPasteboard.PasteboardType {
     static let backwardsCompatibleFileURL: NSPasteboard.PasteboardType = {
@@ -22,9 +23,9 @@ extension NSPasteboard.PasteboardType {
 class StatusBarView: NSView {
     var filePath: String?
     
-    let video_ext = ["mov","avi","mp4"]
+    let video_ext = ["mov","avi","mp4", "webm"]
     let audio_ext = ["ogg", "mp3", "aac", "wav", "aif", "aiff", "m4a"]
-    let image_ext = ["jpg", "jpeg", "tiff", "png" ]
+    let image_ext = ["jpg", "jpeg", "tiff", "png", "psd" ]
     
     let progressIndicator = NSProgressIndicator()
     var task = Process()
@@ -34,6 +35,7 @@ class StatusBarView: NSView {
     
     var processViewController: ProcessViewController?
     var popoverPopover = NSPopover()
+    var progress = CGFloat(0);
     
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
@@ -53,7 +55,7 @@ class StatusBarView: NSView {
         let storyboard = NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"), bundle: nil)
         processViewController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "ProcessViewController")) as? ProcessViewController
         popoverPopover.contentViewController = processViewController
-        popoverPopover.behavior = .semitransient
+        //popoverPopover.behavior = .semitransient
     }
     
     @objc public func terminateProcess(_ sender: Any) {
@@ -81,14 +83,68 @@ class StatusBarView: NSView {
     
     func endConverting() {
         popoverPopover.close()
+        self.progress = 0.0
         self.progressIndicator.doubleValue = 0.0
         self.menu?.removeItem(at: 2)
         self.menu?.removeItem(self.progressMenuItem)
         self.menu?.removeItem(self.stopMenuItem)
+        self.needsDisplay = true
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+    
+    private func Ring(_ frame: NSRect) -> CAShapeLayer {
+        let center = CGPoint(x: frame.width / 2, y: frame.height / 2)
+        let radius: CGFloat = frame.width/2-3
+        let ringWidth: CGFloat = 2
+
+        let base = CAShapeLayer()
+        
+        
+        
+        let disc = CAShapeLayer()
+        disc.frame = frame
+        let r:CGFloat  = (1.0 - progress) * 1   + progress * 0
+        let g:CGFloat = (1.0 - progress) * 0 + progress * 1
+        let b:CGFloat  = (1.0 - progress) * 0  + progress * 0
+        
+        disc.fillColor = NSColor(red: r, green: g, blue: b, alpha: 1.0).cgColor
+        disc.strokeColor = nil
+        let ringPath = CGMutablePath()
+        //ringPath.addArc(center: center, radius: radius + ringWidth / 2 + slop, startAngle: 0, endAngle: 2 * .pi, clockwise: true)
+        ringPath.addArc(center: center, radius: radius + ringWidth/2, startAngle: 0, endAngle: 2 * .pi, clockwise: true)
+        ringPath.closeSubpath()
+        disc.path = ringPath
+        base.addSublayer(disc)
+
+        let wedge = CAShapeLayer()
+        wedge.frame = frame
+        wedge.fillColor = progress>0 ? NSColor.darkGray.cgColor : NSColor(red: 0.36, green: 0.7, blue: 0.5, alpha: 1).cgColor
+        wedge.strokeColor = nil
+        let wedgePath = CGMutablePath()
+        wedgePath.move(to: center)
+        wedgePath.addArc(center: center, radius: radius + ringWidth / 2, startAngle: .pi/2, endAngle: .pi/2 + .pi*2*(1-progress), clockwise: false)
+        wedgePath.closeSubpath()
+        wedge.path = wedgePath
+        base.addSublayer(wedge)
+//
+        if progress>0 {
+            let mask = CAShapeLayer()
+            mask.frame = frame
+            mask.fillColor = nil
+            mask.strokeColor = NSColor.white.cgColor
+            mask.lineWidth = ringWidth
+            let maskPath = CGMutablePath()
+            maskPath.addArc(center: center, radius: radius, startAngle: 0, endAngle: 2 * .pi, clockwise: true)
+            maskPath.closeSubpath()
+            mask.path = maskPath
+            
+            base.mask = mask
+        }
+        
+        return base
     }
 
     override func draw(_ dirtyRect: NSRect) {
@@ -96,34 +152,21 @@ class StatusBarView: NSView {
         let w = dirtyRect.size.width
         let h = dirtyRect.size.height
         
-        /*let frame = NSRect(x:(w-h)/2, y:2, width: h-4, height: h-4)
-        let center = CGPoint(x: frame.size.width / 2.0, y: frame.size.height / 2.0)
-        let circlePath = NSBezierPath()
-        circlePath.appendArc(withCenter: NSPoint(x: 0, y: 0), radius: (frame.size.width - 10)/2, startAngle: 0.0, endAngle: CGFloat(Double.pi * 2.0), clockwise: true)
-        
-        let circleLayer = CAShapeLayer()
-        
-        circleLayer.path = circlePath
-        circleLayer.fillColor = NSColor.clear.cgColor
-        circleLayer.strokeColor = color.cgColor
-        circleLayer.lineWidth = 5.0;
-        
-        circleLayer.strokeEnd = 1.0
-        circleLayer.frame = frame
-
-        self.addSubview(circleLayer)*/
+        let frame = NSRect(x:(w-h)/2, y:2, width: h-4, height: h-4);
+        let circleLayer = Ring(frame)
+        self.layer?.addSublayer(circleLayer)
         
         self.progressIndicator.frame = NSRect(x:(w-h)/2, y:2, width: h-4, height: h-4)
         // ------ appearance
 
-        self.progressIndicator.style = .spinning
+//        self.progressIndicator.style = .spinning
         //let hueAdjust = CIFilter(name: "CIHueAdjust", withInputParameters: ["inputAngle": NSNumber(value: 1.7)])!
         //self.progressIndicator.contentFilters = [hueAdjust]
         //self.progressIndicator.layer?.backgroundColor = CGColor(red: 1.0, green: 0.8, blue: 0.3, alpha: 1.0)
         // ------ data
-        self.progressIndicator.isIndeterminate = false
-        self.progressIndicator.doubleValue = 0
-        self.addSubview(self.progressIndicator)
+//        self.progressIndicator.isIndeterminate = false
+//        self.progressIndicator.doubleValue = 0
+//        self.addSubview(self.progressIndicator)
     }
     
     override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
@@ -142,7 +185,7 @@ class StatusBarView: NSView {
         
         let suffix = URL(fileURLWithPath: path).pathExtension
         for ext in (self.video_ext + self.audio_ext + self.image_ext) {
-            if ext.lowercased() == suffix {
+            if ext.lowercased() == suffix.lowercased() {
                 return true
             }
         }
@@ -156,8 +199,6 @@ class StatusBarView: NSView {
     override func draggingEnded(_ sender: NSDraggingInfo) {
         //self.layer?.backgroundColor = NSColor.gray.cgColor
     }
-    
-    
     
     override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
         if (task.isRunning) {
@@ -181,6 +222,30 @@ class StatusBarView: NSView {
 
         print("Current extension: \(ext)")
         
+        func askDuration() -> Bool {
+            let alert = NSAlert()
+            
+            
+            let textfield = NSTextField(frame: NSRect(x: 00.0, y: 0.0, width: 100.0, height: 24.0))
+            textfield.integerValue = Preferences.shared.imageDuration
+            alert.accessoryView = textfield
+            
+            alert.messageText = "Converting images to video"
+            alert.informativeText = "Please describe duration in seconds:"
+            alert.addButton(withTitle: "OK")
+            alert.addButton(withTitle: "Cancel")
+            
+            let response = alert.runModal()
+            
+            if response == .alertFirstButtonReturn {
+                Preferences.shared.imageDuration = textfield.integerValue
+                NotificationCenter.default.post(name: Notification.Name(rawValue: "PrefsChanged"), object: nil)
+                print(textfield.integerValue)
+                return true
+            } else {
+                return false
+            }
+        }
         
         if (self.video_ext.contains(ext)) {
             if (ext == "mp4" || FileManager.default.fileExists(atPath: newfile.appendingPathExtension("mp4").path)) {
@@ -197,6 +262,10 @@ class StatusBarView: NSView {
                 "-coder", "1",
                 "-pix_fmt", "yuv420p",
                 "-movflags", "+faststart",
+                // Color profiles
+                "-vf", "colorspace=all=bt709:iall=bt601-6-625:fast=1",
+                "-colorspace", "1", "-color_primaries", "1", "-color_trc", "1",
+                "-y"
             ]
             if Preferences.shared.resolution != 0 {
                 task.arguments? += [
@@ -212,35 +281,32 @@ class StatusBarView: NSView {
                 newfile.appendingPathExtension("mp4").lastPathComponent
             ]
             
-        } else if (self.image_ext.contains(ext)) {
-            // ffmpeg -loop 1 -i "676х468.jpeg" -c:v libx264 -t 5 -pix_fmt yuv420p -crf 20 -preset slow "676х468.mp4"
-            
+        } else if (self.image_ext.contains(ext) && askDuration()) {
             if (ext == "mp4" || FileManager.default.fileExists(atPath: newfile.appendingPathExtension("mp4").path)) {
                 newfile = newfile.deletingLastPathComponent().appendingPathComponent( newfile.lastPathComponent + " copy" )
             }
             task.arguments = [
-                "-i", inputFile.lastPathComponent,
                 "-loop", "1",
+                "-i", inputFile.lastPathComponent,
                 "-c:v", "libx264",
-                "-crf", String(Preferences.shared.crfQuality),
-                "-t", String(5),
-                "-preset", "slow",
+                "-t", String(Preferences.shared.imageDuration),
                 "-pix_fmt", "yuv420p",
-                "-movflags", "+faststart",
+                "-crf", String(Preferences.shared.crfQuality),
+                "-preset", "slow",
+                "-y",
+                // Color profiles
+                "-vf", "colorspace=all=bt709:iall=bt601-6-625:fast=1",
+                "-colorspace", "1", "-color_primaries", "1", "-color_trc", "1",
+                //"-color_trc", "iec61966_2_1",
+//                "-vf", "colorspace=all=bt709:trc=srgb:format=yuv422p",
+                newfile.appendingPathExtension("mp4").lastPathComponent
             ]
+            
             if Preferences.shared.resolution != 0 {
                 task.arguments? += [
                     "-s","hd\(String(Preferences.shared.resolution))",
                 ]
             }
-            task.arguments? += [
-                "-g","30",
-                "-bf","2",
-                "-c:a","aac",
-                "-b:a","384k",
-                "-profile:a","aac_low",
-                newfile.appendingPathExtension("mp4").lastPathComponent
-            ]
             
         } else if (self.audio_ext.contains(ext)) {
             
@@ -254,18 +320,20 @@ class StatusBarView: NSView {
                 "-i", inputFile.lastPathComponent,
                 "-b:a", "128k",
                 newfile.appendingPathExtension("mp3").lastPathComponent,
+                "-y"
             ]
             
         } else {
             return false
         }
         
+        self.progress = 0.0
         self.progressIndicator.doubleValue = 0.0
         let pipe = Pipe()
         task.standardOutput = pipe
         task.standardError = pipe
         task.launch()
-        
+        //print(task.arguments)
         print("Start")
         
         pipe.fileHandleForReading.waitForDataInBackgroundAndNotify()
@@ -285,7 +353,9 @@ class StatusBarView: NSView {
             
             let output = String(data: availableData, encoding: .utf8) ?? ""
             
-            if let durationMatches = output.groups("Duration: (\\d{2}):(\\d{2}):(\\d{2}).(\\d{2})") {
+            if self.image_ext.contains(ext) {
+                duration = Int(Preferences.shared.imageDuration)*100 //seconds
+            } else if let durationMatches = output.groups("Duration: (\\d{2}):(\\d{2}):(\\d{2}).(\\d{2})") {
                 print("Video duration: \(durationMatches[0])")
                 duration = Int(durationMatches[0][4])! //millis
                 duration += Int(durationMatches[0][3])!*100 //seconds
@@ -299,10 +369,13 @@ class StatusBarView: NSView {
                 currentFrame += Int(frameMatches[0][3])!*100 //seconds
                 currentFrame += Int(frameMatches[0][2])!*100*60 //minutes
                 currentFrame += Int(frameMatches[0][1])!*100*60*60 //hours
-                let progressValue = Double(currentFrame)/Double(duration)*100.0
-                self.processViewController?.updateProgress(progressValue)
-                self.progressIndicator.doubleValue = progressValue
-                self.progressMenuItem.title = "... \(String(Int(progressValue)))%"
+                self.progress = Double(currentFrame)/Double(duration)
+                self.processViewController?.updateProgress(self.progress)
+//                self.progressIndicator.doubleValue = progressValue
+                print("progress \(self.progress)")
+                self.needsDisplay = true
+                print(self.progress)
+                //self.progressMenuItem.title = "... \(String(Int(self.progress)))%"
             }
             self.processViewController?.updateInfo(output)
             //print(String(output.count) + " - " + output)

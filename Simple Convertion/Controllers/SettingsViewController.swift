@@ -21,8 +21,8 @@ class SettingsViewController: NSViewController {
     }
     func saveNewPrefs() {
         Preferences.shared.crfQuality = sliderControl.integerValue
-        Preferences.shared.resolution = resolution.selectedTag()
-//        print("Curent selected resolution: \(Preferences.shared.resolution)")
+        Preferences.shared.resolution = [0,480,720,1080][resolution.selectedSegment]
+        print("Curent selected resolution: \(Preferences.shared.resolution)")
         NotificationCenter.default.post(name: Notification.Name(rawValue: "PrefsChanged"), object: nil)
     }
     
@@ -47,7 +47,6 @@ class SettingsViewController: NSViewController {
     }
     
     @IBAction func SliderChange(_ sender: Any) {
-        print(sliderControl.integerValue)
         sliderLabel.integerValue = sliderControl.integerValue
         saveNewPrefs()
     }
