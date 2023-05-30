@@ -1,3 +1,9 @@
+.. image:: https://github.com/timurco/SimpleConversion/blob/main/screenshots/screenshot-1.png
+   :alt: Simple Conversion APP - Screenshot with option
+
+.. image:: https://github.com/timurco/SimpleConversion/blob/main/screenshots/screenshot-2.png
+   :alt: Simple Conversion APP - Screenshot with proccess of converting
+   
 # SimpleConversion
 
 SimpleConversion is a lightweight macOS application that allows you to quickly convert files by simply dragging and dropping them onto the status bar. It provides a convenient way to convert various file formats without the need for complex settings or a dedicated application window.
