@@ -29,7 +29,7 @@ SimpleConversion is a lightweight macOS application that allows you to quickly c
 
 ## Dependencies
 
-- ffmpeg: A powerful multimedia framework for handling various file formats. The application uses ffmpeg for file conversion.
+- [ffmpeg](https://github.com/FFmpeg/FFmpeg): A powerful multimedia framework for handling various file formats. The application uses ffmpeg for file conversion.
 
 ## Contributing
 
