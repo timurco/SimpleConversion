@@ -33,6 +33,6 @@ Contributions are welcome! If you find any bugs or have suggestions for improvem
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE] file for details.
+This project is licensed under the CC BY-NC License - see the [LICENSE] file for details.
 
 [LICENSE]: https://github.com/timurco/SimpleConversion/blob/main/LICENSE
